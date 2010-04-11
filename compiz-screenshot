@@ -24,22 +24,10 @@ import sys, urllib2, urllib, os, gtk, base64
 from gtk import RecentManager
 
 init("cli notify")
-os.system('gnome-screenshot ' + sys.argv[1])
-recentMgr = gtk.recent_manager_get_default()
-recentMgr.set_limit(-1)
-recentlyUsed = recentMgr.get_items()
-recentlyUsed.sort(key=lambda x: x.get_modified, reverse=True)
-for n in range(1, 1000):
-    recentItem = recentlyUsed.pop()
-    if recentItem.has_application('GNOME Screenshot'):
-        break
 
-path = urllib.unquote_plus(recentItem.get_uri())[7:]
-if recentItem.has_application('GNOME Screenshot') == False or os.path.exists(path) == False or path[-3:] != 'png':
-    Notification('Screenshot Aborted!', 'No screenshot was uploaded.').show()
-    sys.exit()
+path = sys.argv[1]
 
-postURL = 'http://host.tld/screenshothandler.php';
+postURL = 'http://host.tld/handler.php';
 data = base64.b64encode(open(path, 'r').read())
 url = urllib2.urlopen(urllib2.Request(postURL), data).read();
 os.remove(path)
