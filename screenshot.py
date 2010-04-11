@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # Copyright: Evan Coury <me@evancoury.com>
-# License: GNU GPL, version 3; http://www.gnu.org/licenses/gpl-3.0.txt\
+# License: GNU GPL, version 3; http://www.gnu.org/licenses/gpl-3.0.txt
 
 from pynotify import *
 import sys, urllib2, urllib, os, gtk, base64
