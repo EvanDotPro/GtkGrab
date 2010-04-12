@@ -20,8 +20,12 @@
 # @package    Client
 
 from pynotify import *
-import sys, urllib2, urllib, os, gtk, base64
+import sys, urllib2, urllib, os, gtk, base64, hashlib
 from gtk import RecentManager
+
+# configuration
+user  = ''
+token = ''
 
 init("cli notify")
 os.system('gnome-screenshot ' + sys.argv[1])
@@ -39,9 +43,21 @@ if recentItem.has_application('GNOME Screenshot') == False or os.path.exists(pat
     Notification('Screenshot Aborted!', 'No screenshot was uploaded.').show()
     sys.exit()
 
-postURL = 'http://host.tld/screenshothandler.php';
+postURL = 'http://localhost/screenshot/handler.php';
+
+# encode the screenshot with base64
 data = base64.b64encode(open(path, 'r').read())
-url = urllib2.urlopen(urllib2.Request(postURL), data).read();
+
+# hash the data with the user's secret token and send that as header
+hash = hashlib.sha1()
+
+hash.update(data)
+hash.update(token)
+
+headers = { 'X-Username': user, 'X-Signature': hash.hexdigest() }
+
+# upload the url and give the screenshot url to the user
+url = urllib2.urlopen(urllib2.Request(postURL, data, headers)).read();
 os.remove(path)
 
 os.system('echo -n "' + url + '" | xclip -selection c')

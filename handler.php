@@ -20,14 +20,31 @@
  * @copyright  Copyright 2010 Pieter Kokx (http://blog.kokx.nl/)
  * @package    Server
  */
+
+// must be in the format 'user' => 'token'
+$users = array();
+
+// read the input
+$input = file_get_contents("php://input");
+
+// verify the user
+if (!isset($_SERVER['HTTP_X_USERNAME']) || !isset($users[$_SERVER['HTTP_X_USERNAME']])) {
+    exit('Error: No authorization');
+}
+$token = $users[$_SERVER['HTTP_X_USERNAME']];
+if (!isset($_SERVER['HTTP_X_SIGNATURE']) || ($_SERVER['HTTP_X_SIGNATURE'] != sha1($input . $token))) {
+    exit('Error: No authorization');
+}
+
+// write the file
 function generateFilename()
 {
-    return substr(md5(time()),0,6);
+    return substr(md5(microtime()),0,6);
 }
 do {
     $filename = 'caps/'.generateFilename().'.png';
 } while(file_exists($filename));
 
-file_put_contents($filename, base64_decode(file_get_contents("php://input")));
+file_put_contents($filename, base64_decode($input));
 
 echo 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/'.$filename;
