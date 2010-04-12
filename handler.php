@@ -30,4 +30,4 @@ do {
 
 file_put_contents($filename, base64_decode(file_get_contents("php://input")));
 
-echo 'http://host.tld/caps/'.$filename;
+echo 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/'.$filename;
