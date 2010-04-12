@@ -47,4 +47,4 @@ do {
 
 file_put_contents($filename, base64_decode($input));
 
-echo 'http://' . $_SERVER['HTTP_HOST'] . dirname($_SERVER['PHP_SELF']) . '/'.$filename;
+echo 'http://' . $_SERVER['HTTP_HOST'] . trim(dirname($_SERVER['PHP_SELF']), '/') . '/'.$filename;
