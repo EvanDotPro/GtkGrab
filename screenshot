@@ -20,28 +20,16 @@
 # @package    Client
 
 from pynotify import *
-import sys, urllib2, urllib, os, gtk, base64, hashlib
-from gtk import RecentManager
+import sys, urllib2, os, base64, hashlib, time
 
 # configuration
 user  = ''
 token = ''
 
 init("cli notify")
-os.system('gnome-screenshot ' + sys.argv[1])
-recentMgr = gtk.recent_manager_get_default()
-recentMgr.set_limit(-1)
-recentlyUsed = recentMgr.get_items()
-recentlyUsed.sort(key=lambda x: x.get_modified, reverse=True)
-for n in range(1, 1000):
-    recentItem = recentlyUsed.pop()
-    if recentItem.has_application('GNOME Screenshot'):
-        break
-
-path = urllib.unquote_plus(recentItem.get_uri())[7:]
-if recentItem.has_application('GNOME Screenshot') == False or os.path.exists(path) == False or path[-3:] != 'png':
-    Notification('Screenshot Aborted!', 'No screenshot was uploaded.').show()
-    sys.exit()
+path = '/tmp/ss.png'
+os.system('scrot --b -s '+path)
+os.system('convert '+path+' \( +clone -background black -shadow 60x5+10+10 \) +swap -background none -layers merge +repage '+path)
 
 postURL = 'http://localhost/screenshot/handler.php';
 
