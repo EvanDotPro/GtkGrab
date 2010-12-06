@@ -19,7 +19,6 @@
 # @copyright  Copyright 2010 Pieter Kokx (http://blog.kokx.nl/)
 # @package    Client
 
-from pynotify import *
 import ConfigParser, sys, urllib2, os, base64, hashlib, time
 
 config = ConfigParser.ConfigParser()
@@ -29,10 +28,8 @@ user = config.get('GtkGrab','username')
 token = config.get('GtkGrab','password')
 postURL = config.get('GtkGrab','posturl')
 
-init("cli notify")
 path = '/tmp/ss.png'
-os.system('scrot --b -s '+path)
-os.system('convert '+path+' \( +clone -background black -shadow 60x5+10+10 \) +swap -background none -layers merge +repage '+path)
+os.system('screencapture -i '+path)
 
 # encode the screenshot with base64
 data = base64.b64encode(open(path, 'r').read())
@@ -49,5 +46,6 @@ headers = { 'X-Username': user, 'X-Signature': hash.hexdigest() }
 url = urllib2.urlopen(urllib2.Request(postURL, data, headers)).read();
 os.remove(path)
 
-os.system('echo -n "' + url + '" | xclip -selection c')
-Notification('Screenshot Uploaded', "Copied URL to clipboard: \n" + url).show()
+os.system('echo -n "' + url + '" | pbcopy')
+
+os.system('growlnotify -m "Copied URL to clipboard: '+url+'" -n "GtkGrab"')

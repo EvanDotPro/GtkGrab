@@ -22,7 +22,7 @@
  */
 
 // must be in the format 'user' => 'token'
-$users = array();
+$users = array('myuser' => 'mypass');
 
 // read the input
 $input = file_get_contents("php://input");
@@ -47,4 +47,9 @@ do {
 
 file_put_contents($filename, base64_decode($input));
 
-echo 'http://' . $_SERVER['HTTP_HOST'] . trim(dirname($_SERVER['PHP_SELF']), '/') . '/'.$filename;
+$path = trim(dirname($_SERVER['PHP_SELF']), '/');
+if (strlen($path) > 0) {
+    $path .= '/';
+}
+
+echo 'http://' . $_SERVER['HTTP_HOST'] . '/' . $path . $filename;
