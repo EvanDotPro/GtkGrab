@@ -23,7 +23,7 @@ from pynotify import *
 import ConfigParser, sys, urllib2, os, base64, hashlib, time
 
 config = ConfigParser.ConfigParser()
-config.readfp(open('config.cfg'))
+config.readfp(open(os.path.dirname(sys.argv[0]) + '/config.cfg'))
 
 user = config.get('GtkGrab','username')
 token = config.get('GtkGrab','password')
