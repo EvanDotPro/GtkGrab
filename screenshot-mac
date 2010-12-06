@@ -48,4 +48,4 @@ os.remove(path)
 
 os.system('echo "' + url + '" | pbcopy')
 
-os.system('growlnotify -m "Copied URL to clipboard: '+url+'" -n "GtkGrab"')
+os.system('/usr/local/bin/growlnotify -m "Copied URL to clipboard: '+url+'" -n "GtkGrab"')
