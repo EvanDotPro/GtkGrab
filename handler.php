@@ -47,7 +47,12 @@ do {
 
 file_put_contents($filename, base64_decode($input));
 
-$path = trim(dirname($_SERVER['PHP_SELF']), '/');
+if (isset($_SERVER['FCGI_ROLE'])) {
+    $path = $_SERVER['REQUEST_URI'];
+} else {
+    $path = $_SERVER['PHP_SELF'];
+}
+$path = trim(dirname($path), '/');
 if (strlen($path) > 0) {
     $path .= '/';
 }
