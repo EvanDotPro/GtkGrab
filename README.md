@@ -8,7 +8,7 @@ GtkGrab is an open source tool for Linux and Mac that takes a screenshot of a wi
 Installation
 ------------
 * Clone your own copy via Git.
-* Upload handler.php to your server and set a username and password.
+* Set a username and password in handler.php and upload it to your server.
 * Create a directory called **`caps`** on your server in the same directory as handler.php and chmod it to 777.
 * Copy config.cfg-sample to config.cfg. Set the username and password to match handler.php and posturl to be the URL to handler.php.
 * Follow any platform-specific instructions below.
@@ -23,7 +23,7 @@ Ubuntu Installation
 -------------------
 *Note: This process has been tested and verified to work on Ubuntu 10.4 but it may work on earlier versions.*
 
-    sudo apt-get install scrot ImageMagick xclip
+    sudo apt-get install scrot imagemagick xclip
 
 Mac Installation
 ----------------
