@@ -5,7 +5,7 @@ Version 0.1.1 Created by Evan Coury
 
 Introduction
 ------------
-GtkGrab is an open source tool for Linux and Mac that takes a screenshot of a window or specified area of the screen, uploads it to a web server of your choice, and copies the URL to your clipboard automatically. Once you start using it, you'll wonder how you got along without it. GtkGrab is essentially a free and open source version of the commercial TinyGrab.com software/service, except that it works on Linux and you don't have to pay to use your own server.
+GtkGrab is an open source tool for Linux and Mac that takes a screenshot of a window or specified area of the screen, uploads it to a web server of your choice, and copies the URL to your clipboard automatically. Once you start using it, you'll wonder how you got along without it. GtkGrab is essentially a free and open source version of the commercial TinyGrab.com software/service, except that it also works on Linux and you don't have to pay to use your own server. The name GtkGrab implies that it may only work in GTK-based desktop environment such as Gnome, however this is no longer the case (though it was originally). To be clear, GtkGrab has been tested to work on Linux running both Gnome and KDE as well as on Mac OSX.
 
 Usage Instructions
 ------------------
