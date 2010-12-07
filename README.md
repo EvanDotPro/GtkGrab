@@ -42,3 +42,7 @@ Mac Installation
 Windows Installation
 --------------------
 Sorry, GtkGrab does not support your operating system. If anyone would like to add Windows support, please fork the project and let me know!
+
+License
+-------
+GtkGrab is released under the terms of the [GNU General Public License (GPL) Version 3](http://en.wikipedia.org/wiki/GNU_General_Public_License). See **`COPYING`** file for details.
