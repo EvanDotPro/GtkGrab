@@ -40,7 +40,7 @@ hash = hashlib.sha1()
 hash.update(data)
 hash.update(token)
 
-headers = { 'X-Username': user, 'X-Signature': hash.hexdigest() }
+headers = { 'X-Username': user, 'X-Signature': hash.hexdigest(), 'Content-Type': 'text/xml' }
 
 # upload the url and give the screenshot url to the user
 url = urllib2.urlopen(urllib2.Request(postURL, data, headers)).read();
