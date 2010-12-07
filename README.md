@@ -15,7 +15,7 @@ Installation
 
 Fedora Installation
 -------------------
-*Note: This process has been tested and verified to work on Fedora 14 but it may work on earlier version.*
+*Note: This process has been tested and verified to work on Fedora 14 but it may work on earlier versions.*
 
     yum install scrot ImageMagick xclip
 
@@ -23,7 +23,7 @@ Ubuntu Installation
 -------------------
 *Note: This process has been tested and verified to work on Ubuntu 10.4 but it may work on earlier versions.*
 
-    apt-get install scrot ImageMagick xclip
+    sudo apt-get install scrot ImageMagick xclip
 
 Mac Installation
 ----------------
