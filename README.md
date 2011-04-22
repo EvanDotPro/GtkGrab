@@ -25,13 +25,25 @@ Installation
 Fedora Installation
 -------------------
 In your terminal, run the following command as root or via sudo:
-    yum install scrot ImageMagick xclip
+
+`yum install scrot ImageMagick xclip`
+
 In Gnome, set up a keyboard shortcut for **`GtkGrab/screenshot`** of your choosing via System -> Preferences -> Keyboard Shortcuts.
 
 Ubuntu Installation
 -------------------
 In your terminal, run the following command:
-    sudo apt-get install scrot imagemagick xclip
+
+`sudo apt-get install scrot imagemagick xclip`
+
+In Gnome, set up a keyboard shortcut for **`GtkGrab/screenshot`** of your choosing via System -> Preferences -> Keyboard Shortcuts.
+
+Arch Linux Installation
+-------------------
+In your terminal, run the following command as root or via sudo:
+
+`pacman -S scrot imagemagick xclip`
+
 In Gnome, set up a keyboard shortcut for **`GtkGrab/screenshot`** of your choosing via System -> Preferences -> Keyboard Shortcuts.
 
 Mac Installation
