@@ -49,7 +49,7 @@ In Gnome, set up a keyboard shortcut for **`GtkGrab/screenshot`** of your choosi
 Mac Installation
 ----------------
 * Install Growl and growlnotify from http://growl.info/
-* Use automator to run **`GtkGrab/screenshot-mac`** via the keyboard shortcut of your choice.
+* Use automator to run **`GtkGrab/screenshot-mac`** via the keyboard shortcut of your choice. Instructions for this can be found [here](http://www.macosxautomation.com/services/learn/tut01/index.html), except where it says to select "Launch Application", you should select "Run Shell Script" instead.
 
 Windows Installation
 --------------------
