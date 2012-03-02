@@ -55,6 +55,11 @@ Windows Installation
 --------------------
 Sorry, GtkGrab does not support your operating system. If anyone would like to add Windows support, please fork the project and let me know!
 
+Problems
+--------
+P: After taking a screenshot no notification is displayed, when running it from the command line the error 'sh: notify-send: not found' occurs
+A: Install notify-osd libnotify-bin via your package manager
+
 License
 -------
 GtkGrab is released under the terms of the [GNU General Public License (GPL) Version 3](http://en.wikipedia.org/wiki/GNU_General_Public_License). See **`COPYING`** file for details.
