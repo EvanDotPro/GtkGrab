@@ -57,8 +57,11 @@ Sorry, GtkGrab does not support your operating system. If anyone would like to a
 
 Problems
 --------
-P: After taking a screenshot no notification is displayed, when running it from the command line the error 'sh: notify-send: not found' occurs
-A: Install notify-osd libnotify-bin via your package manager
+* P: After taking a screenshot no notification is displayed, when running it from the command line the error 'sh: notify-send: not found'
+* A: Install notify-osd libnotify-bin via your package manager
+* P: ImportError: No module named ConfigParser
+* A: GtkGrab wants python2 but your default is python3, you need to change the first line in screenshot to point to your python2, /usr/bin/python2 for example
+
 
 License
 -------
