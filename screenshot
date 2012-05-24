@@ -32,6 +32,9 @@ path = '/tmp/ss.png'
 os.system('scrot --b -s '+path)
 os.system('convert '+path+' \( +clone -background black -shadow 60x5+10+10 \) +swap -background none -layers merge +repage '+path)
 
+if sys.argv[1] == '--edit-gimp':
+    os.system('gimp '+path);
+
 # encode the screenshot with base64
 data = base64.b64encode(open(path, 'r').read())
 
