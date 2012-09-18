@@ -46,6 +46,6 @@ headers = { 'X-Username': user, 'X-Signature': hash.hexdigest(), 'Content-Type':
 url = urllib2.urlopen(urllib2.Request(postURL, data, headers)).read();
 os.remove(path)
 
-os.system('echo "' + url + '" | pbcopy')
+os.system('echo "' + url + '\c" | pbcopy')
 
 os.system('/usr/local/bin/growlnotify -m "Copied URL to clipboard: '+url+'" -n "GtkGrab"')
