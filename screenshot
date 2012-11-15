@@ -27,10 +27,14 @@ config.readfp(open(os.path.dirname(sys.argv[0]) + '/config.cfg'))
 user = config.get('GtkGrab','username')
 token = config.get('GtkGrab','password')
 postURL = config.get('GtkGrab','posturl')
+editorCmd = config.get('GtkGrab', 'editor')
 
 path = '/tmp/ss.png'
 os.system('scrot --b -s '+path)
 os.system('convert '+path+' \( +clone -background black -shadow 60x5+10+10 \) +swap -background none -layers merge +repage '+path)
+
+if len(sys.argv) > 1 and sys.argv[1] == '--edit':
+    os.system(editorCmd % (path));
 
 # encode the screenshot with base64
 data = base64.b64encode(open(path, 'r').read())

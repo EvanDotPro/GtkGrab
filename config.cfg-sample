@@ -2,3 +2,4 @@
 username=myuser
 password=mypass
 posturl=http://yourhost.tld/gtkgrab/handler.php
+editor=gimp %s
