@@ -55,6 +55,13 @@ Windows Installation
 --------------------
 Sorry, GtkGrab does not support your operating system. If anyone would like to add Windows support, please fork the project and let me know!
 
+Screenshot Tool
+---------------
+By default, GtkGrab uses scrot for making screenshots. And it will, by
+default, only make screenshots of a selected area. But there is a 'command'
+configuration directive. You can change this to any screenshot command that
+saves a screenshot to the given path `%p`.
+
 Problems
 --------
 * P: After taking a screenshot no notification is displayed, when running it from the command line the error 'sh: notify-send: not found'
