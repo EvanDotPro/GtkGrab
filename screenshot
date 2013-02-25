@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2
 # This file is part of GtkGrab.
 #
 # GtkGrab is free software: you can redistribute it and/or modify
@@ -15,8 +15,8 @@
 #
 # @category   GtkGrab
 # @license    http://www.gnu.org/licenses/gpl-3.0.txt GPL
-# @copyright  Copyright 2010 Evan Coury (http://www.Evan.pro/)
-# @copyright  Copyright 2010 Pieter Kokx (http://blog.kokx.nl/)
+# @copyright  Copyright 2010-2013 Evan Coury (http://www.Evan.pro/)
+# @copyright  Copyright 2010-2013 Pieter Kokx (http://kokx.nl/)
 # @package    Client
 
 import ConfigParser, sys, urllib2, os, base64, hashlib, time
@@ -27,9 +27,10 @@ config.readfp(open(os.path.dirname(sys.argv[0]) + '/config.cfg'))
 user = config.get('GtkGrab','username')
 token = config.get('GtkGrab','password')
 postURL = config.get('GtkGrab','posturl')
+command = config.get('GtkGrab','command')
 
 path = '/tmp/ss.png'
-os.system('scrot --b -s '+path)
+os.system(command.replace("%p", path))
 os.system('convert '+path+' \( +clone -background black -shadow 60x5+10+10 \) +swap -background none -layers merge +repage '+path)
 
 # encode the screenshot with base64
