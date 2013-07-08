@@ -104,7 +104,9 @@ requires a few extra dependencies to work properly:
 Currently, due to laziness, it uploads the gifs as png files, but they still
 display fine in any modern browser.
 
-Also due to laziness, the gif support only works on Linux, not mac.
+Also due to laziness, the gif support only works on Linux, not Mac. Mac/Windows
+support could be possible via [LICEcap](http://www.cockos.com/licecap/)
+possibly.
 
 To use GtkGrab in gif mode, simply invoke it with `./screenshot gif`.
 
