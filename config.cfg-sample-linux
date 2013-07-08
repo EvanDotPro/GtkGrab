@@ -1,0 +1,6 @@
+[GtkGrab]
+username=myuser
+password=mypass
+posturl=http://yourhost.tld/gtkgrab/handler.php
+command=scrot --b -s %s
+notifyCommand=notify-send --hint=int:transient:1 "Screenshot Uploaded" "Copied URL to clipboard:\n %s"

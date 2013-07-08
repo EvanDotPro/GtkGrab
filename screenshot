@@ -1,4 +1,4 @@
-#!/usr/bin/python2
+#!/usr/bin/env python
 # This file is part of GtkGrab.
 #
 # GtkGrab is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 # @copyright  Copyright 2010-2013 Pieter Kokx (http://kokx.nl/)
 # @package    Client
 
-import ConfigParser, sys, urllib2, os, base64, hashlib, time
+import ConfigParser, sys, urllib2, os, base64, hashlib, pyperclip
 
 config = ConfigParser.ConfigParser()
 config.readfp(open(os.path.dirname(sys.argv[0]) + '/config.cfg'))
@@ -28,10 +28,10 @@ user = config.get('GtkGrab','username')
 token = config.get('GtkGrab','password')
 postURL = config.get('GtkGrab','posturl')
 command = config.get('GtkGrab','command')
+notifyCommand = config.get('GtkGrab','notifyCommand')
 
 path = '/tmp/ss.png'
-os.system(command.replace("%p", path))
-os.system('convert '+path+' \( +clone -background black -shadow 60x5+10+10 \) +swap -background none -layers merge +repage '+path)
+os.system(command.replace("%s", path))
 
 # encode the screenshot with base64
 data = base64.b64encode(open(path, 'r').read())
@@ -42,11 +42,12 @@ hash = hashlib.sha1()
 hash.update(data)
 hash.update(token)
 
-headers = { 'X-Username': user, 'X-Signature': hash.hexdigest(), 'Content-Type': 'text/xml' }
+headers = {'X-Username': user, 'X-Signature': hash.hexdigest(), 'Content-Type': 'text/xml'}
 
 # upload the url and give the screenshot url to the user
 url = urllib2.urlopen(urllib2.Request(postURL, data, headers)).read();
 os.remove(path)
 
-os.system('echo -n "' + url + '" | xclip -selection c')
-os.system('notify-send --hint=int:transient:1 "Screenshot Uploaded" "Copied URL to clipboard: ' + "\n" + url + '"')
+pyperclip.copy(url)
+
+os.system(notifyCommand.replace('%s', url))
