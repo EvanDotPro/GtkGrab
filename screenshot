@@ -29,7 +29,7 @@ token = config.get('GtkGrab','password')
 postURL = config.get('GtkGrab','posturl')
 command = config.get('GtkGrab','command')
 if len(sys.argv) > 1 and sys.argv[1] == 'gif':
-    command = config.get('GtkGrab','gifCommand')
+    command = os.path.dirname(__file__) + '/' + config.get('GtkGrab','gifCommand')
 notifyCommand = config.get('GtkGrab','notifyCommand')
 path = config.get('GtkGrab','capPath')
 

@@ -117,6 +117,13 @@ To use GtkGrab in gif mode, simply invoke it with `./screenshot gif`.
 * A: GtkGrab wants python2 but your default is python3, you need to change the
   first line in `./screenshot` to point to your python2, /usr/bin/python2 for
   example
+* P: Binding a keyboard shortcut in Gnome doesn't work.
+* A: This is an issue with scrot. To solve this, try setting the command option
+  in the config file to `sleep 0.5 && scrot --b -s %s`. For more information
+  see [this](http://ubuntuforums.org/showthread.php?t=1881234) and
+  [this](https://bbs.archlinux.org/viewtopic.php?id=143065) and
+  [this](https://bbs.archlinux.org/viewtopic.php?id=159900) and
+  [this](https://groups.google.com/forum/#!topic/linux.debian.bugs.dist/_tmJIFYBfZo).
 
 ## License
 
