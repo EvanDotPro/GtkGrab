@@ -2,6 +2,12 @@
 
 Version 0.2.0 Created by Evan Coury
 
+## Update Notice
+
+If you are updating GtkGrab, please be aware that you may need to update your
+config.cfg file (see the samples) and/or your handler.php on the server after
+updating.
+
 ## Introduction
 
 GtkGrab is an open source tool for Linux and Mac that takes a screenshot of a
@@ -39,7 +45,7 @@ Gnome and KDE as well as on Mac OSX.
 
 In your terminal, run the following command as root or via sudo:
 
-`yum install scrot xclip byzanz`
+`yum install scrot xclip`
 
 In Gnome, set up a keyboard shortcut for **`GtkGrab/screenshot`** of your
 choosing via System -> Preferences -> Keyboard Shortcuts.
@@ -76,12 +82,27 @@ choosing via System -> Preferences -> Keyboard Shortcuts.
 Sorry, GtkGrab does not support your operating system. If anyone would like to
 add Windows support, please fork the project and let me know!
 
-### Screenshot Tool
+## Screenshot Tool
 
 By default, GtkGrab uses scrot for making screenshots. And it will, by default,
 only make screenshots of a selected area. But there is a 'command'
 configuration directive. You can change this to any screenshot command that
 saves a screenshot to the given path `%s`.
+
+## Animated GIF Support
+
+GtkGrab optionally supports recording an animated GIF of your screen. This
+requires a few extra dependencies to work properly:
+
+* [zenity](https://help.gnome.org/users/zenity/stable/) for prompting how long
+  to record for.
+* [xrectsel](https://github.com/lolilolicon/FFcast2/blob/master/xrectsel.c) for
+  selecting the area to record.
+* [byzanz](https://git.gnome.org/browse/byzanz/) for actually recording the gif
+  (available in the Fedora base repo).
+
+Currently, due to laziness, it uploads the gifs as png files, but they still
+display fine in any modern browser.
 
 ## Troubleshooting
 

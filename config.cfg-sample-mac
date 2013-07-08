@@ -4,3 +4,4 @@ password=mypass
 posturl=http://yourhost.tld/gtkgrab/handler.php
 command=screencapture -i %s
 notifyCommand=/usr/local/bin/growlnotify -m "Copied url to clipboard: %s" -n "GtkGrab"
+capPath=/tmp/ss.png
