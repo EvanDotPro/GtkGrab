@@ -19,7 +19,7 @@
 # @copyright  Copyright 2010-2013 Pieter Kokx (http://kokx.nl/)
 # @package    Client
 
-import ConfigParser, sys, urllib2, os, base64, hashlib, pyperclip
+import ConfigParser, sys, urllib2, os, base64, hashlib, pyperclip, time
 
 config = ConfigParser.ConfigParser()
 config.readfp(open(os.path.dirname(sys.argv[0]) + '/config.cfg'))
@@ -28,26 +28,41 @@ user = config.get('GtkGrab','username')
 token = config.get('GtkGrab','password')
 postURL = config.get('GtkGrab','posturl')
 command = config.get('GtkGrab','command')
+
 if len(sys.argv) > 1 and sys.argv[1] == 'gif':
     command = os.path.dirname(__file__) + '/' + config.get('GtkGrab','gifCommand')
+
 notifyCommand = config.get('GtkGrab','notifyCommand')
+
 path = config.get('GtkGrab','capPath')
 
 os.system(command.replace("%s", path))
 
-# encode the screenshot with base64
-data = base64.b64encode(open(path, 'r').read())
+if postURL == 's3':
+    bucket = config.get('GtkGrab', 's3bucket')
+    prefix = config.get('GtkGrab', 's3prefix')
+    filename = hashlib.sha1()
+    filename.update(str(time.time()))
+    filename = filename.hexdigest()
+    s3Url = "s3://" + bucket + "/" + prefix + "/" + filename + ".png"
+    uploadCommand = "s3cmd ";
+    if (os.path.exists('.s3cfg')):
+        uploadCommand += "-c .s3cfg "
+    uploadCommand += "put " + path + " " + s3Url + " --acl-public"
+    os.system(uploadCommand)
+    url = "http://"+bucket+".s3.amazonaws.com/caps/"+filename+".png"
+else:
+    # encode the screenshot with base64
+    data = base64.b64encode(open(path, 'r').read())
+    # hash the data with the user's secret token and send that as header
+    hash = hashlib.sha1()
+    hash.update(data)
+    hash.update(token)
+    headers = {'X-Username': user, 'X-Signature': hash.hexdigest(), 'Content-Type': 'text/xml'}
+    # upload the url and give the screenshot url to the user
+    url = urllib2.urlopen(urllib2.Request(postURL, data, headers)).read()
 
-# hash the data with the user's secret token and send that as header
-hash = hashlib.sha1()
-
-hash.update(data)
-hash.update(token)
-
-headers = {'X-Username': user, 'X-Signature': hash.hexdigest(), 'Content-Type': 'text/xml'}
-
-# upload the url and give the screenshot url to the user
-url = urllib2.urlopen(urllib2.Request(postURL, data, headers)).read();
+# remove the file
 os.remove(path)
 
 pyperclip.copy(url)

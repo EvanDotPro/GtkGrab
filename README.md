@@ -41,6 +41,14 @@ Gnome and KDE as well as on Mac OSX.
   and password to match handler.php and posturl to be the URL to handler.php.
 * Follow any platform-specific instructions below.
 
+### Amazon S3 Upload Support
+* Alternatively, GtkGrab supports using `s3cmd` (available in ruby-gems) to
+  upload screenshots to Amazon S3.
+* To configure: `s3cmd --configure` to create a `.s3cfg` file and place it in
+  the GtkGrab directory. In your GtkGrab config, set `postURL` to `s3`.
+* **Note:** if a local `.s3cfg` is not available, then the default `.s3cfg` will
+  be used instead (if it exists).
+
 ### Fedora Installation
 
 In your terminal, run the following command as root or via sudo:
