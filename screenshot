@@ -44,13 +44,14 @@ if postURL == 's3':
     filename = hashlib.sha1()
     filename.update(str(time.time()))
     filename = filename.hexdigest()
+    filename = filename[:6]
     s3Url = "s3://" + bucket + "/" + prefix + "/" + filename + ".png"
     uploadCommand = "s3cmd ";
     if (os.path.exists('.s3cfg')):
         uploadCommand += "-c .s3cfg "
     uploadCommand += "put " + path + " " + s3Url + " --acl-public"
     os.system(uploadCommand)
-    url = "http://"+bucket+".s3.amazonaws.com/caps/"+filename+".png"
+    url = "http://"+bucket+"/"+prefix+"/"+filename+".png"
 else:
     # encode the screenshot with base64
     data = base64.b64encode(open(path, 'r').read())
