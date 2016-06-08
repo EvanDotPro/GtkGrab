@@ -78,7 +78,8 @@ choosing via System -> Preferences -> Keyboard Shortcuts.
 
 ### Mac Installation
 
-* Install Growl and growlnotify from http://growl.info/
+* Install Terminal Notifier from https://github.com/julienXX/terminal-notifier/releases
+* Copy config.cfg-sample-mac to config.cfg and update as appropriate
 * Use automator to run **`GtkGrab/screenshot`** via the keyboard shortcut
   of your choice. Instructions for this can be found
   [here](http://www.macosxautomation.com/services/learn/tut01/index.html),

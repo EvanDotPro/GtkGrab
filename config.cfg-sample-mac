@@ -3,5 +3,5 @@ username=myuser
 password=mypass
 posturl=http://yourhost.tld/gtkgrab/handler.php
 command=screencapture -i %s
-notifyCommand=/usr/local/bin/growlnotify -m "Copied url to clipboard: %s" -n "GtkGrab"
+notifyCommand=/usr/local/bin/terminal-notifier.app/Contents/MacOS/terminal-notifier -message "Copied URL to clipboard: %s" -title "GtkGrab"
 capPath=/tmp/ss.png
