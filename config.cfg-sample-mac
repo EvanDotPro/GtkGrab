@@ -3,5 +3,8 @@ username=myuser
 password=mypass
 posturl=http://yourhost.tld/gtkgrab/handler.php
 command=screencapture -i %s
+; If you want to capture the current window without using the mouse, use
+; https://github.com/vorgos/QuickGrab and this command:
+; command=/usr/local/bin/quickgrab -file %s
 notifyCommand=/usr/local/bin/terminal-notifier.app/Contents/MacOS/terminal-notifier -message "Copied URL to clipboard: %s" -title "GtkGrab"
 capPath=/tmp/ss.png
