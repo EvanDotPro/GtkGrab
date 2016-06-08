@@ -1,6 +1,6 @@
 # GtkGrab - Screenshot Uploader
 
-Version 0.2.0 Created by Evan Coury
+Version 0.3.0 Created by Evan Coury
 
 ## Update Notice
 
