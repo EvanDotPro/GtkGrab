@@ -24,23 +24,30 @@ import ConfigParser, sys, urllib2, os, base64, hashlib, pyperclip, time
 config = ConfigParser.ConfigParser()
 config.readfp(open(os.path.dirname(sys.argv[0]) + '/config.cfg'))
 
-user = config.get('GtkGrab','username')
-token = config.get('GtkGrab','password')
-postURL = config.get('GtkGrab','posturl')
-command = config.get('GtkGrab','command')
+configSection = 'GtkGrab'
+if len(sys.argv) > 1 and sys.argv[1] != 'gif':
+    configSection = sys.argv[1]
+
+user = config.get(configSection,'username')
+token = config.get(configSection,'password')
+postURL = config.get(configSection,'posturl')
+command = config.get(configSection,'command')
 
 if len(sys.argv) > 1 and sys.argv[1] == 'gif':
-    command = os.path.dirname(__file__) + '/' + config.get('GtkGrab','gifCommand')
+    command = os.path.dirname(__file__) + '/' + config.get(configSection,'gifCommand')
 
-notifyCommand = config.get('GtkGrab','notifyCommand')
+if len(sys.argv) > 2 and sys.argv[2] == 'gif':
+    command = os.path.dirname(__file__) + '/' + config.get(configSection,'gifCommand')
 
-path = config.get('GtkGrab','capPath')
+notifyCommand = config.get(configSection,'notifyCommand')
+
+path = config.get(configSection,'capPath')
 
 os.system(command.replace("%s", path))
 
 if postURL == 's3':
-    bucket = config.get('GtkGrab', 's3bucket')
-    prefix = config.get('GtkGrab', 's3prefix')
+    bucket = config.get(configSection, 's3bucket')
+    prefix = config.get(configSection, 's3prefix')
     filename = hashlib.sha1()
     filename.update(str(time.time()))
     filename = filename.hexdigest()

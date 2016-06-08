@@ -39,7 +39,14 @@ Gnome and KDE as well as on Mac OSX.
   handler.php and chmod it to 777.
 * Copy the appropriate config.cfg-sample-{os} to config.cfg. Set the username
   and password to match handler.php and posturl to be the URL to handler.php.
+  
+    Create a new top level section in `config.cfg` and pass the section name
+    into `screenshot` as the first parameter to use different configuration
+    settings
+
+
 * Follow any platform-specific instructions below.
+
 
 ### Amazon S3 Upload Support
 * Alternatively, GtkGrab supports using `s3cmd` (available in ruby-gems) to
