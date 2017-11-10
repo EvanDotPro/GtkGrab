@@ -43,14 +43,14 @@ if postURL == 's3':
     prefix = config.get('GtkGrab', 's3prefix')
     filename = hashlib.sha1()
     filename.update(str(time.time()))
-    filename = filename.hexdigest()
-    s3Url = "s3://" + bucket + "/" + prefix + "/" + filename + ".png"
+    filename = filename.hexdigest()[:7]
+    s3Url = "s3://" + bucket + "/" + filename + ".png"
     uploadCommand = "s3cmd ";
     if (os.path.exists('.s3cfg')):
         uploadCommand += "-c .s3cfg "
     uploadCommand += "put " + path + " " + s3Url + " --acl-public"
     os.system(uploadCommand)
-    url = "http://"+bucket+".s3.amazonaws.com/caps/"+filename+".png"
+    url = "http://"+bucket+".s3.amazonaws.com/"+filename+".png"
 else:
     # encode the screenshot with base64
     data = base64.b64encode(open(path, 'r').read())
