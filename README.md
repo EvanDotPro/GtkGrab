@@ -118,6 +118,13 @@ possibly.
 
 To use GtkGrab in gif mode, simply invoke it with `./screenshot gif`.
 
+## Keeping a local copy
+
+You might want to keep a local copy of your screenshot! If you do, just add
+the configuration option `localCopyPath` with where you want to store your
+saved screenshots. The screenshots will be named with date and time. The path
+does NOT need a trailing slash.
+
 ## Troubleshooting
 
 * P: After taking a screenshot no notification is displayed, when running it
