@@ -20,6 +20,8 @@
 # @package    Client
 
 import ConfigParser, sys, urllib2, os, base64, hashlib, pyperclip, time
+from datetime import datetime
+from shutil import copyfile
 
 config = ConfigParser.ConfigParser()
 config.readfp(open(os.path.dirname(sys.argv[0]) + '/config.cfg'))
@@ -61,6 +63,11 @@ else:
     headers = {'X-Username': user, 'X-Signature': hash.hexdigest(), 'Content-Type': 'text/xml'}
     # upload the url and give the screenshot url to the user
     url = urllib2.urlopen(urllib2.Request(postURL, data, headers)).read()
+
+if config.has_option('GtkGrab', 'localCopyPath'):
+    now = datetime.now()
+    localCopyFile = config.get('GtkGrab', 'localCopyPath') + '/Screenshot from ' + now.strftime('%Y-%m-%d %H-%M-%S') + '.png'
+    copyfile(path, localCopyFile)
 
 # remove the file
 os.remove(path)

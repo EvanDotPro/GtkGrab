@@ -6,3 +6,5 @@ command=scrot --b -s %s
 gifCommand=record-gif.sh $(zenity --entry --text="How long to record?") %s
 notifyCommand=notify-send --hint=int:transient:1 "Screenshot Uploaded" "Copied URL to clipboard:\n %s"
 capPath=/tmp/ss.png
+# Note: path must exist
+# localCopyPath=/home/user/Pictures/Screenshots
