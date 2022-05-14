@@ -58,4 +58,5 @@ if (strlen($path) > 0) {
     $path .= '/';
 }
 
-echo 'http://' . $_SERVER['HTTP_HOST'] . '/' . $path . $filename;
+header("Content-Type: text/plain");
+echo 'https://' . $_SERVER['HTTP_HOST'] . '/' . $path . $filename;
