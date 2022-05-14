@@ -46,6 +46,7 @@ do {
 } while(file_exists($filename));
 
 file_put_contents($filename, base64_decode($input));
+chmod($filename, 0664);
 
 if (isset($_SERVER['FCGI_ROLE'])) {
     $path = $_SERVER['REQUEST_URI'];
