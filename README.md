@@ -1,6 +1,6 @@
 # GtkGrab - Screenshot Uploader
 
-Version 0.2.0 Created by Evan Coury
+Version 0.3.0 Created by Evan Coury
 
 ## Update Notice
 
@@ -39,7 +39,14 @@ Gnome and KDE as well as on Mac OSX.
   handler.php and chmod it to 777.
 * Copy the appropriate config.cfg-sample-{os} to config.cfg. Set the username
   and password to match handler.php and posturl to be the URL to handler.php.
+  
+    Create a new top level section in `config.cfg` and pass the section name
+    into `screenshot` as the first parameter to use different configuration
+    settings
+
+
 * Follow any platform-specific instructions below.
+
 
 ### Amazon S3 Upload Support
 * Alternatively, GtkGrab supports using `s3cmd` (available in ruby-gems) to
@@ -78,7 +85,8 @@ choosing via System -> Preferences -> Keyboard Shortcuts.
 
 ### Mac Installation
 
-* Install Growl and growlnotify from http://growl.info/
+* Install Terminal Notifier from https://github.com/julienXX/terminal-notifier/releases
+* Copy config.cfg-sample-mac to config.cfg and update as appropriate
 * Use automator to run **`GtkGrab/screenshot`** via the keyboard shortcut
   of your choice. Instructions for this can be found
   [here](http://www.macosxautomation.com/services/learn/tut01/index.html),

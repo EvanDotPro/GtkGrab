@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+
 # This file is part of GtkGrab.
 #
 # GtkGrab is free software: you can redistribute it and/or modify
@@ -19,28 +20,49 @@
 # @copyright  Copyright 2010-2013 Pieter Kokx (http://kokx.nl/)
 # @package    Client
 
-import ConfigParser, sys, urllib2, os, base64, hashlib, pyperclip, time
+import configparser, sys, urllib.request as urllib2, os, base64, hashlib, pyperclip, time
 
-config = ConfigParser.ConfigParser()
-config.readfp(open(os.path.dirname(sys.argv[0]) + '/config.cfg'))
+config = configparser.ConfigParser()
+config.read_file(open(os.path.dirname(__file__) + '/config.cfg'))
 
-user = config.get('GtkGrab','username')
-token = config.get('GtkGrab','password')
-postURL = config.get('GtkGrab','posturl')
-command = config.get('GtkGrab','command')
+configSection = 'GtkGrab'
+if len(sys.argv) > 1 and sys.argv[1] != 'gif':
+    configSection = sys.argv[1]
 
+user = config.get(configSection,'username', raw=True)
+token = config.get(configSection,'password', raw=True)
+postURL = config.get(configSection,'posturl', raw=True)
+notifyCommand = config.get(configSection,'notifyCommand', raw=True)
+path = config.get(configSection,'capPath', raw=True)
+
+# determine command to run
+command = config.get(configSection,'command', raw=True)
 if len(sys.argv) > 1 and sys.argv[1] == 'gif':
-    command = os.path.dirname(__file__) + '/' + config.get('GtkGrab','gifCommand')
+    command = os.path.dirname(__file__) + '/' + config.get(configSection,'gifCommand', raw=True)
+if len(sys.argv) > 2 and sys.argv[2] == 'gif':
+    command = os.path.dirname(__file__) + '/' + config.get(configSection,'gifCommand', raw=True)
 
-notifyCommand = config.get('GtkGrab','notifyCommand')
 
-path = config.get('GtkGrab','capPath')
+# Delete cap file if it currently exists
+if os.path.exists(path) == True:
+    os.remove(path)
 
-os.system(command.replace("%s", path))
+# Perform capture
+returnval = os.system(command.replace("%s", path))
+
+if returnval != 0 or os.path.exists(path) == False:
+    # no cap file created
+    # os.system(notifyCommand.replace('%s', "Cancelled"))
+    sys.exit(1)
+
+
+# if convertCommand:
+#     os.system(convertCommand.replace("%s", path))
+
 
 if postURL == 's3':
-    bucket = config.get('GtkGrab', 's3bucket')
-    prefix = config.get('GtkGrab', 's3prefix')
+    bucket = config.get(configSection, 's3bucket', raw=True)
+    prefix = config.get(configSection, 's3prefix', raw=True)
     filename = hashlib.sha1()
     filename.update(str(time.time()))
     filename = filename.hexdigest()
@@ -53,18 +75,20 @@ if postURL == 's3':
     url = "http://"+bucket+".s3.amazonaws.com/caps/"+filename+".png"
 else:
     # encode the screenshot with base64
-    data = base64.b64encode(open(path, 'r').read())
+    data = base64.b64encode(open(path, 'rb').read())
     # hash the data with the user's secret token and send that as header
     hash = hashlib.sha1()
     hash.update(data)
-    hash.update(token)
+    hash.update(token.encode('UTF-8'))
     headers = {'X-Username': user, 'X-Signature': hash.hexdigest(), 'Content-Type': 'text/xml'}
     # upload the url and give the screenshot url to the user
     url = urllib2.urlopen(urllib2.Request(postURL, data, headers)).read()
+    url = url.decode(encoding='utf-8', errors='strict')
 
 # remove the file
-os.remove(path)
+if os.path.exists(path) == True:
+    os.remove(path)
 
 pyperclip.copy(url)
 
-os.system(notifyCommand.replace('%s', url))
+os.system(notifyCommand.replace('%s', 'Copied URL to clipboard: ' + url))

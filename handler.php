@@ -39,13 +39,14 @@ if (!isset($_SERVER['HTTP_X_SIGNATURE']) || ($_SERVER['HTTP_X_SIGNATURE'] != sha
 // write the file
 function generateFilename()
 {
-    return substr(md5(microtime()),0,6);
+    return substr(md5(microtime() . mt_rand()),0,8);
 }
 do {
-    $filename = 'caps/'.generateFilename().'.png';
+    $filename = generateFilename().'.png';
 } while(file_exists($filename));
 
 file_put_contents($filename, base64_decode($input));
+chmod($filename, 0664);
 
 if (isset($_SERVER['FCGI_ROLE'])) {
     $path = $_SERVER['REQUEST_URI'];
@@ -57,4 +58,5 @@ if (strlen($path) > 0) {
     $path .= '/';
 }
 
-echo 'http://' . $_SERVER['HTTP_HOST'] . '/' . $path . $filename;
+header("Content-Type: text/plain");
+echo 'https://' . $_SERVER['HTTP_HOST'] . '/' . $path . $filename;
